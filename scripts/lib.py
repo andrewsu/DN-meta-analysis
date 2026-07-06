@@ -106,6 +106,42 @@ def build_probe2symbol(gpl_table, kind):
     return mapping
 
 
+def collapse_by_symbol(expr):
+    """Collapse a symbol-indexed matrix (possible duplicate symbols) to one row
+    per gene, keeping the highest-mean row. Drops empty/invalid symbols."""
+    idx = expr.index.astype(str)
+    ok = [isinstance(s, str) and s not in ("", "---", "NA", "nan", "None") for s in idx]
+    expr = expr.loc[ok].copy()
+    expr.index = expr.index.astype(str)
+    m = expr.mean(axis=1)
+    expr = expr.assign(_m=m).sort_values("_m", ascending=False)
+    expr = expr[~expr.index.duplicated(keep="first")].drop(columns="_m")
+    expr.index.name = "gene"
+    return expr.sort_index()
+
+
+def counts_to_log2cpm(counts, min_cpm=1.0, min_frac=0.2):
+    """Filter low-expressed genes then log2-CPM (limma-trend style)."""
+    counts = counts.astype(float)
+    lib_size = counts.sum(axis=0)
+    cpm = counts.div(lib_size, axis=1) * 1e6
+    keep = (cpm >= min_cpm).sum(axis=1) >= max(2, int(min_frac * counts.shape[1]))
+    return np.log2(cpm.loc[keep] + 1.0)
+
+
+# Immediate-early / stress-response genes: induced by tissue procurement, warm
+# ischemia, and processing delay -> classic bulk-kidney artifact (dominated the
+# ARCHS4 result). Flagged and excluded from the primary DEG set.
+IEG_GENES = {
+    "FOS", "FOSB", "FOSL1", "FOSL2", "JUN", "JUNB", "JUND", "EGR1", "EGR2",
+    "EGR3", "EGR4", "NR4A1", "NR4A2", "NR4A3", "DUSP1", "DUSP2", "DUSP5",
+    "DUSP6", "ATF3", "ARC", "IER2", "IER3", "IER5", "GADD45B", "GADD45G",
+    "ZFP36", "BTG2", "CCN1", "CYR61", "CCN2", "CTGF", "RGS1", "RGS2", "PER1",
+    "SOCS3", "KLF2", "KLF4", "KLF6", "MCL1", "HSPA1A", "HSPA1B", "DNAJB1",
+    "NFKBIA", "PPP1R15A", "SGK1", "MYC", "JUND", "SIK1", "APOLD1", "MAFF",
+}
+
+
 def collapse_to_genes(expr, probe2sym):
     """Collapse probes to genes keeping, per gene, the probe with highest mean."""
     probes = expr.index.intersection(pd.Index(list(probe2sym.keys())))

@@ -5,7 +5,17 @@ nephropathy (DN)** across three independent human **glomerular** microarray coho
 Implemented in pure Python (numpy/scipy/pandas) — no R/limma dependency; all statistics are
 re-implemented from the primary literature so every step is transparent.
 
-📄 **Full write-up:** [`results/REPORT.md`](results/REPORT.md)
+📄 **Full write-ups:** [`results/REPORT.md`](results/REPORT.md) (glomerular microarray) ·
+[`results/RNASEQ_REPORT.md`](results/RNASEQ_REPORT.md) (whole-kidney RNA-seq companion + ARCHS4 re-examination)
+
+> **RNA-seq companion / ARCHS4 comparison.** A second meta-analysis applies the same
+> study-matched effect-size framework to three human whole-kidney **RNA-seq** cohorts
+> (GSE142025, GSE162830, GSE166239) and compares to the SuLab ARCHS4 result. Key finding:
+> the ARCHS4 top genes (immediate-early factors FOS/FOSB/EGR1/NR4A1/DUSP1) show **I²≈95%**
+> heterogeneity and **fail FDR** here — a tissue-procurement artifact that naïve pooling
+> surfaces but random-effects demotes. The reproducible cross-modality DN signal is
+> **podocyte injury** (NPHS1, NPHS2, PTPRO, MAGI2), significant in both compartments; the
+> fibrosis/complement program is glomerular-compartment-specific. See `fig5–fig7`.
 
 ## Datasets
 

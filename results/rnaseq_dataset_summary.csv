@@ -1,0 +1,4 @@
+id,label,n_dn,n_ctrl,n_genes,n_sig
+GSE142025,Whole kidney biopsy (Fan 2019),27,9,17184,7663
+GSE162830,"Whole kidney, DN vs reference (2021)",18,9,25522,38
+GSE166239,Whole FFPE biopsy (Nordbo 2021),6,6,14888,2144

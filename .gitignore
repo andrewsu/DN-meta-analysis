@@ -1,0 +1,11 @@
+# Raw GEO downloads (large, re-downloadable cache created by scripts/run_de.py)
+data/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+*.swp

@@ -1,0 +1,4 @@
+id,label,gpl,n_dn,n_ctrl,n_genes,n_sig_fdr05,logged
+GSE30528,Glomeruli (Woroniecka 2011),GPL571,9,13,13237,1757,False
+GSE96804,Glomeruli (Pan 2018),GPL17586,41,20,30905,12253,False
+GSE104948,"Glomeruli, ERCB (Grayson/Ju 2018)",GPL22945,7,18,12074,3857,False

@@ -80,6 +80,8 @@ Each method's **candidate/included set** — the accessions it put forward as re
 
 **Reading the Venn:** **C (self-routed)** found only **GSE1009** — the single dataset in the center that *all four* methods found — so it's a subset of everyone. **A** ⊂ (**B** ∪ **D**): everything Claude-alone recalled was also found by web or NDE. **A** and **B** agree tightly on the canonical set. **D (NDE)** contributes **14 datasets no other method surfaced** — the payoff of a purpose-built discovery index over GEO. The one substantive A/B-vs-D split: A & B chose the *newer* ERCB consolidations (GSE104948/GSE104954), while NDE surfaced the *older* ERCB reprocessings (GSE99339/GSE99325) — same underlying biopsies.
 
+> **Caveat (see GEO verification below):** 2 of D's 14 unique datasets are GEO-verified **false positives** (GSE33744 = mouse; GSE158230 = HK-2 cell line). The Venn counts *identified* candidates; the **GEO-verified valid union is 24**, and D's valid contribution is 19.
+
 ### Union table — which method identified each dataset
 
 Legend: ✓ = in that method's candidate set · — = not surfaced. **A** Claude alone · **B** Claude + web · **C** MCP self-routed · **D** MCP → NDE.
@@ -104,17 +106,40 @@ Legend: ✓ = in that method's candidate set · — = not surfaced. **A** Claude
 | [GSE199838](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE199838) | kidney biopsy · bulk RNA-seq | — | — | — | ✓ | |
 | [GSE166239](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE166239) | kidney biopsy · RNA-seq | — | — | — | ✓ | hypertensive + diabetic |
 | [GSE175759](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE175759) | tubulointerstitium · RNA-seq | — | — | — | ✓ | |
-| [GSE33744](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE33744) | glomerular · microarray | — | — | — | ✓ | early T2DN (human arm) |
+| ~~[GSE33744](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE33744)~~ | glomerular · microarray | — | — | — | ✓ | ❌ **GEO-verified false positive** — series is *Mus musculus* (39 mouse samples); human arm is a different accession |
 | [GSE99339](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE99339) | glomerular (ERCB) · microarray | — | — | — | ✓ | ERCB hypoxia series |
 | [GSE99325](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE99325) | tubulointerstitial (ERCB) · microarray | — | — | — | ✓ | ERCB hypoxia series |
-| [GSE158230](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE158230) | tubulointerstitium · transcriptome | — | — | — | ✓ | |
+| ~~[GSE158230](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE158230)~~ | tubulointerstitium · transcriptome | — | — | — | ✓ | ❌ **GEO-verified false positive** — in-vitro HK-2 cell line (SLPI-overexpression vs empty-vector), not patient tissue |
 | [GSE111154](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE111154) | kidney · microarray | — | — | — | ✓ | early DN, postmortem |
 | [GSE162830](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE162830) | glomeruli (laser-microdissected) · RNA-seq | — | — | — | ✓ | nodular DN |
 | [GSE185011](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE185011) | PBMC · RNA-seq | — | — | — | ✓ | mRNA + lncRNA |
 | [GSE154881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154881) | RNA-seq | — | — | — | ✓ | ⚠ contradictory KG metadata (blood vs kidney) |
-| **Total identified** | | **11** | **9** | **1** | **21** | **union = 26** |
+| **Total identified** | | **11** | **9** | **1** | **21** | **union = 26 — 24 GEO-verified valid, 2 false positives (both D-only)** |
 
-Notes: "identified" counts a method's *proposed candidate* datasets. B and D actively de-duplicated (moved superseries/older-ERCB series to an excluded list), which is why they list fewer raw accessions than A despite covering the same or more biology. GSE154881 is included because NDE surfaced it, but its KG record is internally inconsistent and needs GEO verification.
+Notes: "identified" counts a method's *proposed candidate* datasets. B and D actively de-duplicated (moved superseries/older-ERCB series to an excluded list), which is why they list fewer raw accessions than A despite covering the same or more biology.
+
+### GEO verification (false-positive assessment)
+
+None of the four discovery methods fetched the primary GEO record — web (B) read some pages, NDE (D) read knowledge-graph metadata, alone (A) recalled from memory. So after the fact I **downloaded the primary GEO SOFT record for all 26 accessions** and checked each against the strict query (human · DN/DKD-vs-control · gene expression · not animal / in-vitro / treatment-only / other-disease-only).
+
+**Two false positives — both introduced by NDE (D), both invisible without the primary record:**
+
+- **GSE33744 — non-human.** The GEO series is *Mus musculus* (39 mouse samples, taxid 10090) — the mouse arm of a cross-species paper. NDE labeled it the "human arm," but the human data are a separate accession. NDE was misled by the paper-level "mouse and man" framing in the description.
+- **GSE158230 — in-vitro cell line.** All 6 samples are HK-2 cells (SLPI-overexpression vs empty-vector), an engineered perturbation. The "diabetic nephropathy" framing lives only in the abstract; the deposited data is not patient tissue.
+
+A, B, and C introduced **no** false positives (C's lone dataset, GSE1009, is valid). So the **GEO-verified valid union = 24**.
+
+**Valid, but with data-quality caveats found during verification:**
+
+- **GSE154881** — GEO metadata is internally inconsistent: the design text ("28 DN + 9 nephrectomy kidney controls") appears copied from a kidney study (it matches GSE142025), but the actual series is **15 blood samples** (Healthy/T2D/DN). Usable, but trust the record, not the design text.
+- **GSE185011** — blood/PBMC; comparison groups are mostly other diabetic complications (DR/DPN) with a single healthy-control arm; small DN subset.
+- **GSE175759** — only **n=3** DN among six kidney diseases (22 shared nephrectomy controls).
+- **GSE166239** — raw data deposited in **EGA (controlled access)**, not GEO, for patient privacy.
+- **GSE199838 / GSE218344** — "normal" controls are tumor-nephrectomy-adjacent tissue, not healthy kidney.
+- **GSE111154** — postmortem tissue; obesity imbalance between groups.
+- **GSE195460** — reuses **GSE131882**'s nuclei (double-count risk); **GSE30122** is the superseries of GSE30528+GSE30529.
+
+**Method takeaway:** the breadth that makes NDE the best discovery tool also lets description-driven false positives through — its metadata says "diabetic nephropathy" for a mouse study and a cell-line study whose *deposited data* doesn't match. A **primary-record verification pass is mandatory after discovery, regardless of method**; a naïve pool from any single method's list would have swept in GSE33744 (mouse) and GSE158230 (HK-2 cells).
 
 ---
 

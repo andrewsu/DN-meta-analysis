@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 686" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="680" height="686" fill="#fcfcfb"/>
+
+  <text x="340" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#0b0b0b">Glaucoma datasets found by each discovery method</text>
+  <text x="340" y="56" text-anchor="middle" font-size="12.5" fill="#52514e">Union of 11 GEO accessions · number per overlap region · candidate/included set per method</text>
+
+  <circle cx="255" cy="300" r="150" fill="#2a78d6" fill-opacity="0.30" stroke="#2a78d6" stroke-width="2.5" stroke-opacity="0.9"/>
+  <circle cx="425" cy="300" r="150" fill="#1baf7a" fill-opacity="0.30" stroke="#1baf7a" stroke-width="2.5" stroke-opacity="0.9"/>
+  <circle cx="340" cy="420" r="150" fill="#eda100" fill-opacity="0.30" stroke="#eda100" stroke-width="2.5" stroke-opacity="0.9"/>
+
+  <text x="150" y="196" text-anchor="middle" font-size="14" font-weight="700" fill="#1a5aa8">A · Claude alone</text>
+  <text x="150" y="214" text-anchor="middle" font-size="12.5" fill="#52514e">1 dataset</text>
+  <text x="532" y="196" text-anchor="middle" font-size="14" font-weight="700" fill="#0f7d57">B · Claude + web</text>
+  <text x="532" y="214" text-anchor="middle" font-size="12.5" fill="#52514e">6 datasets</text>
+  <text x="340" y="602" text-anchor="middle" font-size="14" font-weight="700" fill="#9a6b00">D · Claude + MCP&#8202;&#8594;&#8202;NDE</text>
+  <text x="340" y="620" text-anchor="middle" font-size="12.5" fill="#52514e">9 datasets</text>
+
+  <text x="178" y="292" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0b0b">0</text>
+  <text x="505" y="292" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0b0b">2</text>
+  <text x="340" y="520" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0b0b">5</text>
+  <text x="340" y="538" text-anchor="middle" font-size="11" fill="#9a2a2a">(3 false positives)</text>
+  <text x="340" y="248" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0b0b">0</text>
+  <text x="262" y="402" text-anchor="middle" font-size="20" font-weight="700" fill="#0b0b0b">0</text>
+  <text x="420" y="402" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0b0b">3</text>
+  <text x="340" y="336" text-anchor="middle" font-size="24" font-weight="700" fill="#0b0b0b">1</text>
+  <text x="340" y="356" text-anchor="middle" font-size="11" fill="#3a3a38">GSE27276</text>
+
+  <text x="340" y="650" text-anchor="middle" font-size="12" fill="#52514e">GSE27276 (center) is the only dataset all three methods found. 3 of D's 5 unique datasets are</text>
+  <text x="340" y="668" text-anchor="middle" font-size="12" fill="#52514e">GEO-verified false positives (microRNA-only) → GEO-verified valid union = 8.</text>
+</svg>

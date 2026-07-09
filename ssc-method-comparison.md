@@ -119,3 +119,9 @@ Every accession D surfaced was downloaded from GEO and classified by organism + 
 ## Bottom line
 
 Across DN, glaucoma, and SSc the *method-level* findings are robust: **web produces clean, verified, current candidate sets (zero false positives in all three)**; **NDE offers broad discovery but description-driven false positives, no sample counts, and a lagging mirror**; **primary-record verification is non-negotiable**. On-mission focus (SSc) gave NDE more coverage but not more precision, and at ~170 datasets the practical pipeline is **web or a GEO query for candidates → programmatic organism+assay filter → sample-level curation from GEO SOFT files**, with patient-overlap de-duplication that no conversational method resolves from metadata alone.
+
+---
+
+## Addendum — subclass-aware recall (ontology expansion)
+
+Ontology subclass expansion is an NDE/MCP-only capability (`get_descendants`), and the SSc **D run actually used it** — the stream shows it looked up SSc's URI, enumerated subtypes, and excluded morphea. Expanding systemic sclerosis (MONDO:0005100) to its **7 MONDO subclasses** (diffuse/limited cutaneous SSc, diffuse scleroderma, CREST, …) changes the NDE count only **167 → 170 (+1.8%)** — SSc studies almost always carry the umbrella "systemic sclerosis" tag, so there is little subclass-only recall to recover. This is the low-gain end of a strongly disease-dependent effect (glaucoma +19%, DN 0%).

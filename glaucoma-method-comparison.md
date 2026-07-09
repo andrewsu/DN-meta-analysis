@@ -107,3 +107,11 @@ Cleared on inspection: **GSE27057** (series-level `Mus musculus` tag is spurious
 ## Bottom line
 
 For glaucoma, **web (B) is again the best single method** for a clean, verified candidate set; **NDE (D)** matches it on discovery but needs a modality/species filter to drop miRNA and mislabeled-organism false positives; **Claude-alone (A)** collapsed to a single dataset. The DN *method-level* conclusions replicate cleanly; the *magnitude* conclusions are disease-specific.
+
+---
+
+## Addendum — subclass-aware recall (ontology expansion)
+
+**Ontology subclass expansion is an NDE/MCP-only capability** (`get_descendants` / `auto_expand_descendants`); A (no tools) and B (keyword+synonym search) don't do it — and the glaucoma **D run didn't use it either** (it matched the exact term), so the **134 headline count is an exact-match undercount**.
+
+Expanding glaucoma (MONDO:0005041) to its **50 MONDO subclasses** (open-angle, angle-closure, exfoliation, congenital, low-tension, …) raises NDE recall **134 → 159 (+19%)**. But it **lowers precision**: of the 25 subclass-only datasets, only **10 are human gene-expression** — 10 are non-human (mouse/rat ocular-hypertension models) and 6 are other-assay (methylation/ATAC/genotyping), so the false-positive rate among the *added* datasets (~60%) is higher than the parent pool's. Net: subclass expansion trades recall for precision, and the added candidates still need the same primary-record verification. (Contrast: +1.8% for SSc, 0% for DN — see those reports.)

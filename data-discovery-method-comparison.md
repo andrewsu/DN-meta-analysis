@@ -248,3 +248,13 @@ RUN_ONLY="C_claude_mcp_nde" TIMEOUT=900 ./run_dn_condition_comparison.sh
 Outputs in `dn-comparison-run1/`: `*.answer.md` (each answer), `*.json` (result events), `*.stream.jsonl` (full event stream), `token_usage.csv`.
 
 **Report label ↔ artifact filename** (the harness uses its own internal names): report **A** = `A_claude_alone`; report **B** = `D_claude_web`; report **C** (self-routed) = `C_UNSTEERED.*`; report **D** (steered → NDE) = `C_claude_mcp_nde`.
+
+---
+
+## Addendum — subclass-aware recall (ontology expansion)
+
+**Do any method use ontologies to improve recall via subclass expansion?** Only the **NDE/MCP path (D)** has the capability (`get_descendants` / `auto_expand_descendants`); **A** (no tools) and **B** (keyword + synonym GEO search) do not — and even D used it inconsistently across diseases. Where it isn't used, the reported NDE counts are exact-match lower bounds.
+
+**For DN specifically it makes no difference:** diabetic kidney disease (MONDO:0005016) is a MONDO **leaf term with zero subclasses**, so subclass expansion cannot add recall — the **129 count is complete at the term level**. (Clinical "subtypes" such as nodular / Kimmelstiel-Wilson glomerulosclerosis are not MONDO children of DKD.)
+
+The effect is strongly disease-dependent — the same expansion adds **+19% for glaucoma** (many distinct subtypes: open-angle, angle-closure, …, but ~60% of the added datasets are non-human/non-expression false positives) and **+1.8% for systemic sclerosis** (studies use the umbrella term). See the [glaucoma](glaucoma-method-comparison.md) and [SSc](ssc-method-comparison.md) reports. Recall expansion is orthogonal to the false-positive problem and, for glaucoma, actually *raises* the FP rate.

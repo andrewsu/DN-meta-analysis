@@ -112,6 +112,24 @@ For glaucoma, **web (B) is again the best single method** for a clean, verified 
 
 ## Addendum — subclass-aware recall (ontology expansion)
 
-**Ontology subclass expansion is an NDE/MCP-only capability** (`get_descendants` / `auto_expand_descendants`); A (no tools) and B (keyword+synonym search) don't do it — and the glaucoma **D run didn't use it either** (it matched the exact term), so the **134 headline count is an exact-match undercount**.
+**Ontology subclass expansion is an NDE/MCP-only capability** (`get_descendants` / `auto_expand_descendants`); A (no tools) and B (keyword+synonym search) don't do it, and the glaucoma **D run didn't use it either** (exact-term match), so the 134 headline count is an exact-match lower bound.
 
-Expanding glaucoma (MONDO:0005041) to its **50 MONDO subclasses** (open-angle, angle-closure, exfoliation, congenital, low-tension, …) raises NDE recall **134 → 159 (+19%)**. But it **lowers precision**: of the 25 subclass-only datasets, only **10 are human gene-expression** — 10 are non-human (mouse/rat ocular-hypertension models) and 6 are other-assay (methylation/ATAC/genotyping), so the false-positive rate among the *added* datasets (~60%) is higher than the parent pool's. Net: subclass expansion trades recall for precision, and the added candidates still need the same primary-record verification. (Contrast: +1.8% for SSc, 0% for DN — see those reports.)
+Expanding glaucoma (MONDO:0005041) to its **50 MONDO subclasses** (open-angle, angle-closure, exfoliation, congenital, …) raises the *raw* count **134 → 159 (+19%, +25 datasets)**. **But curating those 25 for validity leaves ZERO usable glaucoma-vs-control DE datasets**: 10 are non-human (mouse/rat models), 6 are other-assay (methylation/ATAC/STARR-seq), and of the 10 human+expression, none is a valid case-control study — they are cultured-cell/treatment experiments (GSE2705, GSE53985, GSE275895, GSE272250), qPCR/miRNA arrays (GSE135653/55/57), a uveitis study using POAG as its *control* arm (GSE171745), or skin/UV studies mis-tagged as glaucoma (GSE21429, GSE56754).
+
+So for glaucoma, **subclass expansion adds +19% raw recall but 0 valid datasets** — the subtype-tagged records are overwhelmingly in-vitro/treatment/mis-tag, not patient cohorts.
+
+**Corrected valid-dataset comparison** (assuming NDE's FP metadata is fixed):
+
+| Method | Valid human GEX glaucoma datasets |
+|---|--:|
+| A · pretraining | 1 |
+| B · web | 6 |
+| D · MCP-NDE (as run) | 6 |
+| D · MCP-NDE **+ subclasses** | **6** (subclass adds 0 valid) |
+| D · MCP-NDE, *fully enumerated* | ~7 (adds GSE4316, already glaucoma-tagged) |
+
+**Why B's 6 ≠ D's 6** — the two datasets B found that D missed, *neither a subclass issue*:
+- **GSE268936** (2024 PBMC scRNA-seq) is **absent from NDE** — a mirror freshness/coverage gap; MCP can't retrieve what isn't ingested.
+- **GSE4316** *is* in NDE tagged plain "glaucoma", but **D's agent didn't enumerate it** (a cultured-cells+tissue study it deprioritized) — an agent-completeness gap, not a tagging/ontology gap.
+
+NDE's real gaps vs web here are **freshness** and **enumeration completeness**, not ontology recall. (Contrast SSc, where subclass expansion recovered 1 genuine dataset; DN, a MONDO leaf, 0.)

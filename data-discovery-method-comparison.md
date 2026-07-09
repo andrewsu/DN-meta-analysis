@@ -4,7 +4,7 @@
 **Date:** 2026-07-07 · **Author:** Andrew Su (with Claude Code)
 **Artifacts:** `dn-comparison-run1/` · **Harness:** `run_dn_condition_comparison.sh` · **Registry fix:** [frink-okn/okn-registry#441](https://github.com/frink-okn/okn-registry/pull/441)
 
-**Generalization tests (same method, other diseases):** [glaucoma](glaucoma-method-comparison.md) · [systemic sclerosis (on-mission IID)](ssc-method-comparison.md)
+**Generalization tests (same method, other diseases):** [glaucoma](glaucoma-method-comparison.md) · [systemic sclerosis (on-mission IID)](ssc-method-comparison.md) · [arthritis (broad umbrella)](arthritis-method-comparison.md)
 
 ---
 
